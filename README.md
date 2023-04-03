@@ -1,16 +1,26 @@
-## Introduction
-In this project, I developed an ETL (Extract, Transform, and Load) pipeline using Python, SQL, and AWS to analyze hospitalization data for California. The raw data from three different sources was stored in AWS S3 to enable reuse, and the cleaned data was saved back to S3 after processing with SQL. Finally, the results were visualized using Tableau. This pipeline can be easily extended to analyze additional healthcare data in the future.
+# California Hospitalization Data ETL Pipeline
 
-The final hospitalization data can be visualized by Tableau dashboard:
+## TABLE OF CONTENTS
+
+* [Introduction](#introduction)
+* [Pipeline Architecture](#pipeline-architecture)
+* [Data Source](#data-source)
+* [Extract, Transform and Load](#extract-transform-and-load)
+* [Future Analysis](#future-analysis)
+
+## Introduction
+In this project, I developed an ETL (Extract, Transform, and Load) pipeline using Python, SQL, and AWS to analyze hospitalization data of California. The raw data from three different sources was stored in AWS S3 to enable reuse, and the cleaned data was saved back to S3 after processing with SQL. Finally, the results were visualized using Tableau. This pipeline can be easily extended to analyze additional healthcare data in the future.
+
+Data visualization by Tableau dashboard:
 
 [View it in Tableau](https://public.tableau.com/app/profile/qinliu/viz/CaliforniaHospitalizationCountsandRatesofSelectedAdverseHospitalEvents/Dashboard1)
 <div>
-  <img alt="tableau dashboard" src="image/tableau-img.png" width="80%">
+  <img alt="tableau dashboard" src="img/tableau-img.png" width="80%">
 </div>
 
 ## Pipeline Architecture
 <div>
-  <img alt="ETL Diagram" src="image/etl-diagram.png" width="80%">
+  <img alt="ETL Diagram" src="img/etl-diagram.png" width="80%">
 </div>
 
 ## Data Source
@@ -26,7 +36,7 @@ The final hospitalization data can be visualized by Tableau dashboard:
 
 - Transform and Load: With [AWS Glue Crawler](https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html), S3 files can be analyzed as tables in [AWS Athena](https://aws.amazon.com/athena/) using SQL. The data schema:
 <div>
-  <img alt="data schema" src="image/data-schema.png" width="60%">
+  <img alt="data schema" src="img/data-schema.png" width="60%">
 </div>
 
 The SQL query should contain:
@@ -38,4 +48,4 @@ Then use Lambda function to execute the SQL query and save the processed data to
 
 ## Future Analysis
 
-The currently processed data is only loaded to S3, because the amount of hospitalization data in California is relatively small. In the future, we can add more healthcare-related data, such as readmission rates and mortality rates. At that time, by adding a data warehouse (such as AWS Redshift) to the pipeline, we can query and analyze California healthcare data more comprehensively.
+Currently the processed data is only loaded to S3, because the volume of California hospitalization data is relatively small. In the future, we can add more healthcare-related data, such as readmission rates and mortality rates. At that time, by adding a data warehouse (such as AWS Redshift) to the pipeline, we can query and analyze more comprehensive California Healthcare data.
