@@ -6,7 +6,7 @@
 * [Pipeline Architecture](#pipeline-architecture)
 * [Data Source](#data-source)
 * [Extract, Transform and Load](#extract-transform-and-load)
-* [Future Analysis](#future-analysis)
+* [Future Work](#future-work)
 
 ## Introduction
 In this project, I developed an ETL (Extract, Transform, and Load) pipeline using Python, SQL, and AWS to analyze hospitalization data of California. The raw data from three different sources was stored in AWS S3 to enable reuse, and the cleaned data was saved back to S3 after processing with SQL. Finally, the results were visualized using Tableau. This pipeline can be easily extended to analyze additional healthcare data in the future.
@@ -46,6 +46,6 @@ The SQL query should contain:
 
 Then use Lambda function to execute the SQL query and save the processed data to S3 for future analysis, see the script [process and save data using SQL and Python](https://github.com/eeliuqin/California-Hospitalization-Data-ETL-Pipeline/blob/main/sql-process-save-to-s3.py).
 
-## Future Analysis
+## Future Work
 
 Currently the processed data is only loaded to S3, because the volume of California hospitalization data is relatively small. In the future, we can add more healthcare-related data, such as readmission rates and mortality rates. At that time, by adding a data warehouse (such as AWS Redshift) to the pipeline, we can query and analyze more comprehensive California Healthcare data.

@@ -1,4 +1,11 @@
 import boto3
+import os
+
+# environment variables saved in Lambda
+ATHENA_DATABASE = os.environ["athena_database"]
+SAVE_TO_BUCKET = os.environ["save_to_s3_bucket"]
+SAVE_TO_DIR = os.environ["save_to_s3_dir"]
+SAVE_AS_FILE = os.environ["save_as_file"]
 
 # create athena client
 def get_athena_client() -> boto3.client:
@@ -66,37 +73,32 @@ def lambda_handler(event, context):
         )
     
         SELECT h.county,
-              p.popestimate as population,
-              h.observed_rate,
-              ROUND(cast(age65plus_tot as double)/cast(age18plus_tot as double)*100, 2) AS age65_adults_percent,
-              i.median_family_income
+               p.popestimate as population,
+               h.observed_rate,
+               ROUND(cast(age65plus_tot as double)/cast(age18plus_tot as double)*100, 2) AS age65_adults_percent,
+               i.median_family_income
         FROM county_hospitalization h
         LEFT JOIN "california-hospitalizations-adverse-events"."population" p
             ON p.ctyname = concat(h.county, ' County')
         LEFT JOIN "california-hospitalizations-adverse-events"."income" i
             ON i.county = h.county
         WHERE h.year=2014 
-              AND p.year=6
+            AND p.year=6
         ORDER BY 1
     """
     
-    # query from athena database
-    athena_database = 'california-hospitalizations-adverse-events'
-    save_to_s3_bucket = 'california-data'
-    s3_output_dir = 'output'
     # the output location of query results
-    s3_output_location = f"s3://{save_to_s3_bucket}/{s3_output_dir}/"
-    new_file_name = "ca-hospitalization-population-income.csv"
+    s3_output_location = f"s3://{SAVE_TO_BUCKET}/{SAVE_TO_DIR}/"
 
     athena_client = get_athena_client()
     response = get_query_response(athena_client,
                                   query=query,
-                                  database=athena_database,
+                                  database=ATHENA_DATABASE,
                                   output_location=s3_output_location)
     result = rename_query_results(response, 
-                                  bucket_name=save_to_s3_bucket, 
-                                  directory=s3_output_dir,
-                                  new_name=new_file_name)
+                                  bucket_name=SAVE_TO_BUCKET, 
+                                  directory=SAVE_TO_DIR,
+                                  new_name=SAVE_AS_FILE)
                          
     print(result)
     
