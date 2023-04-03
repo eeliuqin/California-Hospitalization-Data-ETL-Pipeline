@@ -32,7 +32,7 @@ Data visualization by Tableau dashboard:
 
 ## Extract, Transform and Load
 
-- Extract: Those source data can be extracted and saved to [AWS S3](https://aws.amazon.com/pm/serv-s3/) by [AWS Lambda](https://aws.amazon.com/lambda/), see the script [extract and upload using Python](https://github.com/eeliuqin/CA-Healthcare-Data-ETL-Pipeline/blob/main/extract-upload-to-s3.py).
+- Extract: Those source data can be extracted and saved to [AWS S3](https://aws.amazon.com/pm/serv-s3/) by [AWS Lambda](https://aws.amazon.com/lambda/), see the script [extract and upload using Python](https://github.com/eeliuqin/California-Hospitalization-Data-ETL-Pipeline/blob/main/extract-upload-to-s3.py).
 
 - Transform and Load: With [AWS Glue Crawler](https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html), S3 files can be analyzed as tables in [AWS Athena](https://aws.amazon.com/athena/) using SQL. The data schema:
 <div>
@@ -44,7 +44,7 @@ The SQL query should contain:
 - Get the percentage of adults over the age of 65 for each county
 - Join tables by county names while resolving redundant words in population data
 
-Then use Lambda function to execute the SQL query and save the processed data to S3 for future analysis, see the script [process and save data using SQL and Python](https://github.com/eeliuqin/CA-Healthcare-Data-ETL-Pipeline/blob/main/sql-process-save-to-s3.py).
+Then use Lambda function to execute the SQL query and save the processed data to S3 for future analysis, see the script [process and save data using SQL and Python](https://github.com/eeliuqin/California-Hospitalization-Data-ETL-Pipeline/blob/main/sql-process-save-to-s3.py).
 
 ## Future Analysis
 
